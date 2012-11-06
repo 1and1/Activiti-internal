@@ -9,7 +9,7 @@
 
   <packaging>pom</packaging>
   <version>5.10</version>
-  <properties>
+  <properties>	
     <spring.framework.version>3.1.2.RELEASE</spring.framework.version>
     <mule.version>3.3.0</mule.version>
     <cxf.version>2.6.1</cxf.version>

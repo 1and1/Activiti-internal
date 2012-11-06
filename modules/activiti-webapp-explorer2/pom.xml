@@ -5,7 +5,7 @@
   
   <name>Activiti - Webapp - Explorer V2</name>
   <groupId>org.activiti</groupId>
-  <artifactId>activiti-webapp-explorer2</artifactId>
+  <artifactId>activiti-webapp-explorer2</artifactId>   
   <packaging>war</packaging>
 
   <parent>
