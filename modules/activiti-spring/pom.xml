@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<name>Activiti - Spring</name>
-	<groupId>org.activiti</groupId>
+	<groupId>com.oneandone.swistec.activiti</groupId>
 	<artifactId>activiti-spring</artifactId>
 
 	<parent>
-		<groupId>org.activiti</groupId>
+		<groupId>com.oneandone.swistec.activiti</groupId>
 		<artifactId>activiti-root</artifactId>
 		<relativePath>../..</relativePath>
 		<version>5.10</version>
@@ -15,7 +15,7 @@
 
 	<dependencies>
     <dependency>
-      <groupId>org.activiti</groupId>
+      <groupId>com.oneandone.swistec.activiti</groupId>
       <artifactId>activiti-engine</artifactId>
     </dependency>
     <dependency>

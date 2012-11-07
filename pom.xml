@@ -4,7 +4,7 @@
 
   <name>Activiti</name>
   <description>BPM and workflow engine</description>
-  <groupId>org.activiti</groupId>
+  <groupId>com.oneandone.swistec.activiti</groupId>
   <artifactId>activiti-root</artifactId>
 
   <packaging>pom</packaging>
@@ -150,23 +150,23 @@
         <scope>test</scope>
       </dependency>
       <dependency>
-        <groupId>org.activiti</groupId>
+        <groupId>com.oneandone.swistec.activiti</groupId>
         <artifactId>activiti-engine</artifactId>
         <version>${version}</version>
       </dependency>
       <dependency>
-        <groupId>org.activiti</groupId>
+        <groupId>com.oneandone.swistec.activiti</groupId>
         <artifactId>activiti-spring</artifactId>
         <version>${version}</version>
       </dependency> 
       <dependency>
-        <groupId>org.activiti</groupId>
+        <groupId>com.oneandone.swistec.activiti</groupId>
         <artifactId>activiti-webapp-rest2</artifactId>
         <type>war</type>
         <version>${version}</version>
       </dependency>
       <dependency>
-        <groupId>org.activiti</groupId>
+        <groupId>com.oneandone.swistec.activiti</groupId>
         <artifactId>activiti-cxf</artifactId>
         <version>${version}</version>
       </dependency>

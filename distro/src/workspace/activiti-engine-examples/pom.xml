@@ -4,7 +4,7 @@
 
   <name>Activiti Engine Examples</name>
   <description>BPM and workflow engine</description>
-  <groupId>org.activiti</groupId>
+  <groupId>com.oneandone.swistec.activiti</groupId>
   <artifactId>activiti-engine-examples</artifactId>
 
   <packaging>jar</packaging>
@@ -13,7 +13,7 @@
   <dependencies>
   
     <dependency>
-      <groupId>org.activiti</groupId>
+      <groupId>com.oneandone.swistec.activiti</groupId>
       <artifactId>activiti-engine</artifactId>
       <version>${version}</version>
     </dependency>
