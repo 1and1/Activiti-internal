@@ -13,6 +13,8 @@
     <relativePath>../..</relativePath>
     <version>5.10</version>
   </parent>
+  
+  
 
   <dependencies>
     <dependency>
@@ -144,11 +146,18 @@
           org.springframework*;resolution:=optional,
           org.drools*;resolution:=optional,
           com.fasterxml*;resolution:=optional,
-      </activiti.osgi.import.additional>
+      </activiti.osgi.import.additional>  
   </properties>
 
   <build>
-    <plugins>      
+    <plugins>  
+     <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>    
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
