@@ -7,52 +7,16 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd">
        
-  <bean id="dbProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-    <property name="location" value="classpath:db.properties" />
-    <!-- Allow other PropertyPlaceholderConfigurer to run as well -->
-    <property name="ignoreUnresolvablePlaceholders" value="true"/>
+  <bean id="processEngineService" class="org.springframework.jndi.JndiObjectFactoryBean">
+	<property name="jndiName" value="java:global/camunda-fox-platform/process-engine/PlatformService!com.camunda.fox.platform.api.ProcessEngineService" />
   </bean>
-
+  
+  <bean id="processEngine" factory-bean="processEngineService" factory-method="getDefaultProcessEngine" />  
+  
   <bean id="demoDataGenerator" class="org.activiti.explorer.demo.DemoDataGenerator">
     <property name="processEngine" ref="processEngine" />
   </bean>
 
-  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-    <property name="driverClassName" value="${jdbc.driver}" />
-    <property name="url" value="${jdbc.url}" />
-    <property name="username" value="${jdbc.username}" />
-    <property name="password" value="${jdbc.password}" />
-     <property name="defaultAutoCommit" value="false" />
-  </bean>
-  
-  <!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-    <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-    <property name="url" value="jdbc:mysql://localhost:3306/activiti?autoReconnect=true" />
-    <property name="username" value="activiti" />
-    <property name="password" value="activiti" />
-     <property name="defaultAutoCommit" value="false" />
-  </bean> -->
-
-  <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-  	<property name="dataSource" ref="dataSource" />
-  </bean>
-  
-  <bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
-  	<property name="dataSource" ref="dataSource" />
-  	<property name="transactionManager" ref="transactionManager" />
-  	<property name="databaseSchemaUpdate" value="true" />
-  	<property name="jobExecutorActivate" value="true" />
-    <property name="customFormTypes">
-      <list>
-        <ref bean="userFormType"/>
-      </list>
-    </property>
-  </bean>
-  
-  <bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean" destroy-method="destroy">
-  	<property name="processEngineConfiguration" ref="processEngineConfiguration" />
-  </bean>
-  
   <bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService" />
   <bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService" />
   <bean id="taskService" factory-bean="processEngine" factory-method="getTaskService" />
