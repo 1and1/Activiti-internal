@@ -4,10 +4,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <name>Activiti - BPMN Model</name>
+  <groupId>com.oneandone.swistec.activiti</groupId>
   <artifactId>activiti-bpmn-model</artifactId>
 
   <parent>
-    <groupId>org.activiti</groupId>
+    <groupId>com.oneandone.swistec.activiti</groupId>
     <artifactId>activiti-root</artifactId>
     <relativePath>../..</relativePath>
     <version>5.11</version>

@@ -46,9 +46,19 @@
     </property>
   </bean>
   
-  <bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean" destroy-method="destroy">
-  	<property name="processEngineConfiguration" ref="processEngineConfiguration" />
+  <!-- Fox Intergration configuration  -->
+  <bean id="processEngineService" class="org.springframework.jndi.JndiObjectFactoryBean">
+	<property name="jndiName" value="java:global/camunda-fox-platform/process-engine/PlatformService!com.camunda.fox.platform.api.ProcessEngineService" />
   </bean>
+  
+  <bean id="processEngine" factory-bean="processEngineService" factory-method="getDefaultProcessEngine" > 
+	<property name="processEngineConfiguration" ref="processEngineConfiguration" />
+  </bean>  
+    
+  <!--<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean" destroy-method="destroy">
+  	<property name="processEngineConfiguration" ref="processEngineConfiguration" />
+  </bean>-->
+  
   
   <bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService" />
   <bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService" />

@@ -3,13 +3,13 @@
   <modelVersion>4.0.0</modelVersion>
 
   <name>Activiti - Userguide</name>
-  <groupId>org.activiti</groupId>
+  <groupId>com.oneandone.swistec.activiti</groupId>
   <artifactId>activiti-userguide</artifactId>
   <version>1.0</version>
 
   <dependencies>
     <dependency>
-      <groupId>org.activiti</groupId>
+      <groupId>com.oneandone.swistec.activiti</groupId>
       <artifactId>activiti-docbook-tool</artifactId>
       <version>1.0</version>
     </dependency>

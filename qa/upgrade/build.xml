@@ -55,7 +55,7 @@
       <arg line="-PcheckUpgrade clean install" />
     </exec>
 	</target>
-	
+
 	<target name="upgrade" depends="get.old.distro,
 		                              install.old.distro,
 		                              build.engine.module,
@@ -121,7 +121,11 @@
     <exec executable="${mvn.executable}" dir="../../modules/activiti-upgrade">
       <arg line="-Ddatabase=${database} ${optional.debug.property} clean prepare-package" />
     </exec>
+
     <antcall target="internal.h2.stop" />
+    <!-- Old script code from version 5.10 . Please remove if build script works fine after merging of version 5.10 and 5.11 in GIT
+  <!--  <antcall target="internal.h2.start" />-->
+
 	</target>
 	
 	<target name="internal.h2.start" if="is.database.h2">

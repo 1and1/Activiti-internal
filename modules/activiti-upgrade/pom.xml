@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <name>Activiti - Upgrade</name>
-  <groupId>org.activiti</groupId>
+  <groupId>com.oneandone.swistec.activiti</groupId>
   <artifactId>activiti-upgrade</artifactId>
   <version>5.11</version>
 
@@ -15,7 +15,7 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.activiti</groupId>
+      <groupId>com.oneandone.swistec.activiti</groupId>
       <artifactId>activiti-engine</artifactId>
       <version>${upgradeVersion}</version>
     </dependency>
@@ -41,9 +41,9 @@
       <version>8.4-701.jdbc4</version>
     </dependency>
     <dependency>
-      <groupId>com.oracle.jdbc</groupId>
-      <artifactId>ojdbc5</artifactId>
-      <version>11.2.0.1.0</version>
+      <groupId>com.oracle</groupId>
+      <artifactId>ojdbc6</artifactId>
+      <version>11.2.0.3</version>
     </dependency>
     <dependency>
       <groupId>net.sourceforge.jtds</groupId>
@@ -95,8 +95,8 @@
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
+          <source>1.6</source>
+          <target>1.6</target>
           <showDeprecation>true</showDeprecation>
           <showWarnings>true</showWarnings>
           <optimize>true</optimize>
@@ -390,15 +390,25 @@
   </profiles>    
 
   <distributionManagement>
-    <snapshotRepository>
-      <id>alfresco.snapshot.repo</id>
-      <url>https://maven.alfresco.com/nexus/content/repositories/activiti-snapshots/</url>
-      <uniqueVersion>false</uniqueVersion>
-    </snapshotRepository>
-    <repository>
-      <id>alfresco.release.repo</id>
-      <url>https://maven.alfresco.com/nexus/content/repositories/activiti/</url>
-    </repository>
-  </distributionManagement>
+        <repository>
+            <uniqueVersion>false</uniqueVersion>
+            <id>1und1-swis-release</id>
+            <name>Release Repository</name>
+            <url>${releaseRepoUrl}</url>
+            <layout>default</layout>
+        </repository>
+        <snapshotRepository>
+            <uniqueVersion>true</uniqueVersion>
+            <id>1und1-snapshots</id>
+            <name>1und1-snapshots</name>
+            <url>http://mavenrepo.united.domain:8081/nexus/content/repositories/1und1-snapshots</url>
+            <layout>default</layout>
+        </snapshotRepository>
+        <site>
+            <id>local-site</id>
+            <name>Local Maven Site</name>
+            <url>file://${user.dir}/target/deploy/site</url>
+        </site>
+    </distributionManagement>
 
 </project>

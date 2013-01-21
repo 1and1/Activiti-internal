@@ -4,14 +4,17 @@
   <modelVersion>4.0.0</modelVersion>
 
   <name>Activiti - Engine</name>
+  <groupId>com.oneandone.swistec.activiti</groupId>
   <artifactId>activiti-engine</artifactId>
 
   <parent>
-    <groupId>org.activiti</groupId>
+    <groupId>com.oneandone.swistec.activiti</groupId>
     <artifactId>activiti-root</artifactId>
     <relativePath>../..</relativePath>
     <version>5.11</version>
   </parent>
+  
+  
 
   <dependencies>
     <dependency>
@@ -144,7 +147,14 @@
   </properties>
 
   <build>
-    <plugins>      
+    <plugins>  
+     <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>    
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
@@ -389,7 +399,7 @@
       </build>
       <dependencies>
         <dependency>
-            <groupId>org.activiti</groupId>
+            <groupId>com.oneandone.swistec.activiti</groupId>
             <artifactId>activiti-spring</artifactId>
             <scope>test</scope>
         </dependency>

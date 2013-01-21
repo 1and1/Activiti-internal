@@ -4,7 +4,7 @@
 
   <name>Activiti DB Clean</name>
   <description>Activiti DB Clean</description>
-  <groupId>org.activiti</groupId>
+  <groupId>com.oneandone.swistec.activiti</groupId>
   <artifactId>activiti-dbclean</artifactId>
 
   <packaging>pom</packaging>
@@ -37,7 +37,7 @@
       <version>8.4-701.jdbc4</version>
     </dependency>
     <dependency>
-      <groupId>org.activiti</groupId>
+      <groupId>com.oneandone.swistec.activiti</groupId>
       <artifactId>activiti-engine</artifactId>
       <version>${version}</version>
     </dependency>

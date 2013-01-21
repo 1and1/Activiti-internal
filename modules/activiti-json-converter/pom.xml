@@ -7,7 +7,7 @@
   <artifactId>activiti-json-converter</artifactId>
 
   <parent>
-    <groupId>org.activiti</groupId>
+    <groupId>com.oneandone.swistec.activiti</groupId>
     <artifactId>activiti-root</artifactId>
     <relativePath>../..</relativePath>
     <version>5.11</version>
@@ -15,7 +15,7 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.activiti</groupId>
+      <groupId>com.oneandone.swistec.activiti</groupId>
       <artifactId>activiti-bpmn-model</artifactId>
     </dependency>
     <dependency>

@@ -8,7 +8,7 @@
   <packaging>jar</packaging>
 
   <parent>
-    <groupId>org.activiti</groupId>
+    <groupId>com.oneandone.swistec.activiti</groupId>
     <artifactId>activiti-root</artifactId>
     <relativePath>../..</relativePath>
     <version>5.11</version>
@@ -114,7 +114,7 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.activiti</groupId>
+      <groupId>com.oneandone.swistec.activiti</groupId>
       <artifactId>activiti-engine</artifactId>
     </dependency>
     <dependency>
@@ -166,5 +166,4 @@
       </plugin>
     </plugins>
   </build>
-
 </project>

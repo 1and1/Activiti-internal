@@ -4,12 +4,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <name>Activiti - Upgrade Fetcher</name>
-  <groupId>org.activiti</groupId>
+	<groupId>com.oneandone.swistec.activiti</groupId>
   <artifactId>activiti-upgrade-fetcher</artifactId>
   <version>5.11</version>
 
   <parent>
-    <groupId>org.activiti</groupId>
+    <groupId>com.oneandone.swistec.activiti</groupId>
     <artifactId>activiti-root</artifactId>
     <relativePath>../..</relativePath>
     <version>5.11</version>
@@ -17,8 +17,12 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.activiti</groupId>
+      <groupId>com.oneandone.swistec.activiti</groupId>
       <artifactId>activiti-engine</artifactId>
+	</dependency>
+	<dependency>
+      <groupId>com.oneandone.swistec.activiti</groupId>
+      <artifactId>activiti-upgrade</artifactId>
       <version>${activiti.upgrade.version}</version>
     </dependency>
   </dependencies>

@@ -4,12 +4,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <name>Activiti - Cactus</name>
-  <groupId>org.activiti</groupId>
+  <groupId>com.oneandone.swistec.activiti</groupId>
   <artifactId>activiti-cactus</artifactId>
   <packaging>war</packaging>
 
   <parent>
-    <groupId>org.activiti</groupId>
+    <groupId>com.oneandone.swistec.activiti</groupId>
     <artifactId>activiti-root</artifactId>
     <relativePath>../..</relativePath>
     <version>5.11</version>
@@ -18,12 +18,12 @@
   <dependencies>
 
     <dependency>
-      <groupId>org.activiti</groupId>
+      <groupId>com.oneandone.swistec.activiti</groupId>
       <artifactId>activiti-engine</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.activiti</groupId>
+      <groupId>com.oneandone.swistec.activiti</groupId>
       <artifactId>activiti-engine</artifactId>
       <classifier>tests</classifier>
       <version>${version}</version>
