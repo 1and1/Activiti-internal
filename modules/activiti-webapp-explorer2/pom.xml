@@ -21,6 +21,17 @@
 
   <build>
 	<plugins>
+	<plugin>
+           <groupId>org.apache.maven.plugins</groupId>
+           <artifactId>maven-war-plugin</artifactId>
+           <configuration>
+              <archive>
+                 <manifestEntries>
+                    <Dependencies>com.oneandone.swistec.activiti.activiti-engine</Dependencies>
+                 </manifestEntries>  
+              </archive>
+           </configuration>
+         </plugin> 
 		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-compiler-plugin</artifactId>
@@ -159,6 +170,7 @@
     <dependency>
       <groupId>com.oneandone.swistec.activiti</groupId>
       <artifactId>activiti-engine</artifactId>
+       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>com.oneandone.swistec.activiti</groupId>

@@ -5,45 +5,22 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
-       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd">
+       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd">  
+ 
+    
+    <!-- This Spring config file is NOT used in Alfresco, as the Activiti engine is wired in a different way there -->
        
-  <!-- This Spring config file is NOT used in Alfresco, as the Activiti engine is wired in a different way there -->
-       
-  <bean id="demoDataGenerator" class="org.activiti.explorer.demo.DemoDataGenerator" init-method="init">
-    <property name="processEngine" ref="processEngine" />
-    <property name="createDemoUsersAndGroups" value="true" />
-    <property name="createDemoProcessDefinitions" value="true" />
-    <property name="createDemoModels" value="true" />
-  </bean>
+<!--   <bean id="demoDataGenerator" class="org.activiti.explorer.demo.DemoDataGenerator" init-method="init"> -->
+<!--     <property name="processEngine" ref="processEngine" /> -->
+<!--     <property name="createDemoUsersAndGroups" value="true" /> -->
+<!--     <property name="createDemoProcessDefinitions" value="true" /> -->
+<!--     <property name="createDemoModels" value="true" /> -->
+<!--   </bean> -->
   
   <bean id="dbProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <property name="location" value="classpath:db.properties" />
     <!-- Allow other PropertyPlaceholderConfigurer to run as well -->
     <property name="ignoreUnresolvablePlaceholders" value="true" />
-  </bean>
-    
-  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-    <property name="driverClassName" value="${jdbc.driver}" />
-    <property name="url" value="${jdbc.url}" />
-    <property name="username" value="${jdbc.username}" />
-    <property name="password" value="${jdbc.password}" />
-    <property name="defaultAutoCommit" value="false" />
-  </bean>
-
-  <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-  	<property name="dataSource" ref="dataSource" />
-  </bean>
-  
-  <bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
-  	<property name="dataSource" ref="dataSource" />
-  	<property name="transactionManager" ref="transactionManager" />
-  	<property name="databaseSchemaUpdate" value="true" />
-  	<property name="jobExecutorActivate" value="true" />
-    <property name="customFormTypes">
-      <list>
-        <bean class="org.activiti.explorer.form.UserFormType"/>   
-      </list>
-    </property>
   </bean>
   
   <!-- Fox Intergration configuration  -->
@@ -51,14 +28,7 @@
 	<property name="jndiName" value="java:global/camunda-fox-platform/process-engine/PlatformService!com.camunda.fox.platform.api.ProcessEngineService" />
   </bean>
   
-  <bean id="processEngine" factory-bean="processEngineService" factory-method="getDefaultProcessEngine" > 
-	<property name="processEngineConfiguration" ref="processEngineConfiguration" />
-  </bean>  
-    
-  <!--<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean" destroy-method="destroy">
-  	<property name="processEngineConfiguration" ref="processEngineConfiguration" />
-  </bean>-->
-  
+  <bean id="processEngine" factory-bean="processEngineService" factory-method="getDefaultProcessEngine" > </bean> 
   
   <bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService" />
   <bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService" />
@@ -70,5 +40,4 @@
   <bean id="activitiLoginHandler" class="org.activiti.explorer.ui.login.DefaultLoginHandler">
     <property name="identityService" ref="identityService" />
   </bean>
-  
 </beans>

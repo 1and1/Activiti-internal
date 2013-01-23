@@ -10,37 +10,6 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
 	<property name="jndiName" value="java:global/camunda-fox-platform/process-engine/PlatformService!com.camunda.fox.platform.api.ProcessEngineService" />
   </bean>
   
-  <bean id="processEngine" factory-bean="processEngineService" factory-method="getDefaultProcessEngine" /> 
-
-<!--  
-  <bean id="dbProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-    <property name="location" value="classpath:db.properties" />   
-    <property name="ignoreUnresolvablePlaceholders" value="true"/>
-  </bean>
-
-  <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-    <property name="driverClass" value="${jdbc.driver}" />
-    <property name="url" value="${jdbc.url}" />
-    <property name="username" value="${jdbc.username}" />
-    <property name="password" value="${jdbc.password}" />
-  </bean>
-
-  <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-    <property name="dataSource" ref="dataSource" />
-  </bean>
-
- <bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
-    <property name="dataSource" ref="dataSource" />
-    <property name="transactionManager" ref="transactionManager" />
-    <property name="databaseSchemaUpdate" value="true" />
-    <property name="mailServerHost" value="localhost" />
-    <property name="mailServerPort" value="5025" />
-    <property name="jobExecutorActivate" value="true" />
-  </bean>
-
-  <bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">
-    <property name="processEngineConfiguration" ref="processEngineConfiguration" />
-  </bean>
--->
+  <bean id="processEngine" factory-bean="processEngineService" factory-method="getDefaultProcessEngine" />
 
 </beans>
