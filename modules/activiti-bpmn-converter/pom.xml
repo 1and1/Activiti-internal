@@ -4,20 +4,20 @@
   <modelVersion>4.0.0</modelVersion>
 
   <name>Activiti - BPMN Converter</name>
-  <groupId>com.oneandone.swistec.activiti</groupId>
+  <groupId>org.activiti</groupId>
   <artifactId>activiti-bpmn-converter</artifactId>
 
 
   <parent>
-    <groupId>com.oneandone.swistec.activiti</groupId>
+    <groupId>org.activiti</groupId>
     <artifactId>activiti-root</artifactId>
     <relativePath>../..</relativePath>
-    <version>5.11</version>
+    <version>5.11.ui1-SNAPSHOT</version>
   </parent>
 
   <dependencies>
     <dependency>
-      <groupId>com.oneandone.swistec.activiti</groupId>
+      <groupId>org.activiti</groupId>
       <artifactId>activiti-bpmn-model</artifactId>
     </dependency>
     <dependency>
@@ -42,7 +42,7 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>com.oneandone.swistec.activiti</groupId>
+      <groupId>org.activiti</groupId>
       <artifactId>activiti-engine</artifactId>
       <scope>test</scope>
     </dependency>          

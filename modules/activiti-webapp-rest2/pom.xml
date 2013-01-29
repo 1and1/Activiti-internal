@@ -7,10 +7,10 @@
   <packaging>war</packaging>
 
   <parent>
-    <groupId>com.oneandone.swistec.activiti</groupId>
+    <groupId>org.activiti</groupId>
     <artifactId>activiti-root</artifactId>
     <relativePath>../..</relativePath>
-    <version>5.11</version>
+    <version>5.11.ui1-SNAPSHOT</version>
   </parent>
 
   <build>
@@ -42,7 +42,7 @@
            <configuration>
               <archive>
                  <manifestEntries>
-                    <Dependencies>com.oneandone.swistec.activiti.activiti-engine</Dependencies>
+                    <Dependencies>org.activiti.activiti-engine</Dependencies>
                  </manifestEntries>  
               </archive>
            </configuration>
@@ -52,16 +52,16 @@
 
   <dependencies>
 	<dependency>
-		<groupId>com.oneandone.swistec.activiti</groupId>
+		<groupId>org.activiti</groupId>
 		<artifactId>activiti-engine</artifactId>
         <scope>provided</scope>
 	</dependency>
     <dependency>
-      <groupId>com.oneandone.swistec.activiti</groupId>
+      <groupId>org.activiti</groupId>
       <artifactId>activiti-spring</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.oneandone.swistec.activiti</groupId>
+      <groupId>org.activiti</groupId>
       <artifactId>activiti-rest</artifactId>
     </dependency>
     <dependency>

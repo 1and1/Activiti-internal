@@ -4,11 +4,11 @@
 
   <name>Activiti</name>
   <description>BPM and workflow engine</description>
-  <groupId>com.oneandone.swistec.activiti</groupId>
+  <groupId>org.activiti</groupId>
   <artifactId>activiti-root</artifactId>
 
   <packaging>pom</packaging>
-  <version>5.11</version>
+  <version>5.11.ui1-SNAPSHOT</version>
   <properties>
     <spring.framework.version>3.1.2.RELEASE</spring.framework.version>
     <mule.version>3.3.0</mule.version>
@@ -151,53 +151,53 @@
         <scope>test</scope>
       </dependency> 
       <dependency>
-        <groupId>com.oneandone.swistec.activiti</groupId>
+        <groupId>org.activiti</groupId>
         <artifactId>activiti-engine</artifactId>
         <version>${version}</version>
       </dependency>
       <dependency>
-        <groupId>com.oneandone.swistec.activiti</groupId>
+        <groupId>org.activiti</groupId>
         <artifactId>activiti-spring</artifactId>
         <version>${version}</version>
       </dependency>
       <dependency>
-        <groupId>com.oneandone.swistec.activiti</groupId>
+        <groupId>org.activiti</groupId>
         <artifactId>activiti-bpmn-model</artifactId>
         <version>${version}</version>
       </dependency>
       <dependency>
-        <groupId>com.oneandone.swistec.activiti</groupId>
+        <groupId>org.activiti</groupId>
         <artifactId>activiti-bpmn-converter</artifactId>
         <version>${version}</version>
       </dependency>
       <dependency>
-        <groupId>com.oneandone.swistec.activiti</groupId>
+        <groupId>org.activiti</groupId>
         <artifactId>activiti-json-converter</artifactId>
         <version>${version}</version>
       </dependency>
       <dependency>
-        <groupId>com.oneandone.swistec.activiti</groupId>
+        <groupId>org.activiti</groupId>
         <artifactId>activiti-explorer</artifactId>
         <version>${version}</version>
       </dependency>
       <dependency>
-        <groupId>com.oneandone.swistec.activiti</groupId>
+        <groupId>org.activiti</groupId>
         <artifactId>activiti-modeler</artifactId>
         <version>${version}</version>
       </dependency>
       <dependency>
-        <groupId>com.oneandone.swistec.activiti</groupId>
+        <groupId>org.activiti</groupId>
         <artifactId>activiti-rest</artifactId>
         <version>${version}</version>
       </dependency> 
       <dependency>
-        <groupId>com.oneandone.swistec.activiti</groupId>
+        <groupId>org.activiti</groupId>
         <artifactId>activiti-webapp-rest2</artifactId>
         <type>war</type>
         <version>${version}</version>
       </dependency>
       <dependency>
-        <groupId>com.oneandone.swistec.activiti</groupId>
+        <groupId>org.activiti</groupId>
         <artifactId>activiti-cxf</artifactId>
         <version>${version}</version>
       </dependency>
@@ -263,7 +263,7 @@
         <groupId>org.json</groupId>
         <artifactId>json</artifactId>
         <version>20070829</version>
-      </dependency>
+      </dependency>     
       <dependency>
         <groupId>org.mule.modules</groupId>
         <artifactId>mule-module-cxf</artifactId>
@@ -774,7 +774,7 @@
             <uniqueVersion>false</uniqueVersion>
             <id>1und1-swis-release</id>
             <name>Release Repository</name>
-            <url>${releaseRepoUrl}</url>
+            <url>http://mavenrepo.united.domain:8081/nexus/content/repositories/1und1-swis-prod</url>
             <layout>default</layout>
         </repository>
         <snapshotRepository>

@@ -4,21 +4,21 @@
   <modelVersion>4.0.0</modelVersion>
 
   <name>Activiti - Camel</name>
-  <groupId>com.oneandone.swistec.activiti</groupId>
+  <groupId>org.activiti</groupId>
   <artifactId>activiti-camel</artifactId>
   <packaging>bundle</packaging>
 
   <parent>
-    <groupId>com.oneandone.swistec.activiti</groupId>
+    <groupId>org.activiti</groupId>
     <artifactId>activiti-root</artifactId>
     <relativePath>../..</relativePath>
-    <version>5.11</version>
+    <version>5.11.ui1-SNAPSHOT</version>
   </parent>
 
 
   <dependencies>
     <dependency>
-		<groupId>com.oneandone.swistec.activiti</groupId>
+		<groupId>org.activiti</groupId>
 		<artifactId>activiti-spring</artifactId>
 		<version>${project.version}</version>
     </dependency>
