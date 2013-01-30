@@ -9,8 +9,9 @@
     <groupId>com.oneandone.swistec.activiti</groupId>
     <artifactId>activiti-root</artifactId>
     <relativePath>../..</relativePath>
-    <version>5.11</version>
+    <version>5.11.ui1-SNAPSHOT</version>
   </parent>
+  
   <dependencies>
     <dependency>
       <groupId>com.oneandone.swistec.activiti</groupId>
@@ -86,6 +87,10 @@
       <artifactId>commons-dbcp</artifactId>
     </dependency>
   </dependencies>
+
+	<build>
+	  	<finalName>${artifactId}-${project.version}</finalName>
+	</build>
 
   <profiles>
     <profile>

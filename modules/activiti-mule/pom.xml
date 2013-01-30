@@ -10,10 +10,11 @@
     <groupId>com.oneandone.swistec.activiti</groupId>
     <artifactId>activiti-root</artifactId>
     <relativePath>../..</relativePath>
-    <version>5.11</version>
+    <version>5.11.ui1-SNAPSHOT</version>
   </parent>
 
-  <build>
+	<build>
+	  	<finalName>${artifactId}-${project.version}</finalName>
     <resources>
       <resource>
         <directory>src/main/resources</directory>
