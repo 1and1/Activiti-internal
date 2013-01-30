@@ -32,7 +32,9 @@ public class AsyncContinuationJobHandler implements JobHandler {
   public void execute(JobEntity job, String configuration, ExecutionEntity execution, CommandContext commandContext) {
     // ATM only AtomicOperationTransitionCreateScope can be performed asynchronously 
     AtomicOperation atomicOperation = AtomicOperation.TRANSITION_CREATE_SCOPE;
-    
+
+	execution.setCurrentJob(job);
+
     commandContext
       .performOperation(atomicOperation, execution);
   }

@@ -209,6 +209,8 @@ public class ExecutionEntity extends VariableScopeImpl implements ActivityExecut
    */
   protected String superExecutionId;
   
+  private JobEntity currentJob;
+  
   protected boolean forcedUpdate;
 
   public ExecutionEntity() {
@@ -1324,4 +1326,12 @@ public class ExecutionEntity extends VariableScopeImpl implements ActivityExecut
     return activityName;
   }
   
+  public void setCurrentJob(final JobEntity job) {
+    currentJob = job;
+  }
+
+  @Override
+  public JobEntity getCurrentJob() {
+    return currentJob;
+  }
 }

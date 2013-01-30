@@ -23,9 +23,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.activiti.engine.EngineServices;
-import org.activiti.engine.ProcessEngine;
-import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.impl.context.Context;
+import org.activiti.engine.impl.persistence.entity.JobEntity;
 import org.activiti.engine.impl.pvm.PvmActivity;
 import org.activiti.engine.impl.pvm.PvmException;
 import org.activiti.engine.impl.pvm.PvmExecution;
@@ -871,5 +870,10 @@ public class ExecutionImpl implements
   
   public void disposeStartingExecution() {
     startingExecution = null;
+  }
+
+  @Override
+  public JobEntity getCurrentJob() {
+	return null;
   }
 }
