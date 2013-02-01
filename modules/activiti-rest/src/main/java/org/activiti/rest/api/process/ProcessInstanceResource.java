@@ -75,9 +75,11 @@ public class ProcessInstanceResource extends SecuredResource {
       responseJSON.put("duration", instance.getDurationInMillis());
     }
     
+    boolean processStillActive = instance.getEndTime() == null;
+    
     addTaskList(processInstanceId, responseJSON);
     addActivityList(processInstanceId, responseJSON);
-    addVariableList(processInstanceId, responseJSON);
+    addVariableList(processInstanceId, responseJSON, processStillActive);
     
     return responseJSON;
   }
@@ -171,8 +173,9 @@ public class ProcessInstanceResource extends SecuredResource {
     }
   }
   
-  private void addVariableList(String processInstanceId, ObjectNode responseJSON) {
+  private void addVariableList(String processInstanceId, ObjectNode responseJSON, boolean processStillActive) {
     
+	if(processStillActive) {
     try {
       Map<String, Object> variableMap = ActivitiUtil.getRuntimeService()
           .getVariables(processInstanceId);
@@ -207,6 +210,7 @@ public class ProcessInstanceResource extends SecuredResource {
     } catch(Exception e) {
       // Absorb possible error that the execution could not be found
     }
+	}
     
     List<HistoricDetail> historyVariableList = ActivitiUtil.getHistoryService()
         .createHistoricDetailQuery()
