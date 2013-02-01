@@ -28,7 +28,7 @@
            <configuration>
               <archive>
                  <manifestEntries>
-                    <Dependencies>org.activiti.activiti-engine</Dependencies>
+                    <Dependencies>org.activiti.activiti-engine,com.camunda.fox.platform.fox-platform-jboss-subsystem</Dependencies>
                  </manifestEntries>  
               </archive>
            </configuration>
