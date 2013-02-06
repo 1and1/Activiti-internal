@@ -1334,4 +1334,5 @@ public class ExecutionEntity extends VariableScopeImpl implements ActivityExecut
   public JobEntity getCurrentJob() {
     return currentJob;
   }
+	
 }

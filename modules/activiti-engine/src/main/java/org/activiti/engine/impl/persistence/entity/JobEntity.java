@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.activiti.engine.ActivitiException;
+import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.impl.context.Context;
 import org.activiti.engine.impl.db.DbSqlSession;
 import org.activiti.engine.impl.db.HasRevision;
@@ -27,261 +28,358 @@ import org.activiti.engine.impl.interceptor.CommandContext;
 import org.activiti.engine.impl.jobexecutor.JobHandler;
 import org.activiti.engine.runtime.Job;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Stub of the common parts of a Job. You will normally work with a subclass of
  * JobEntity, such as {@link TimerEntity} or {@link MessageEntity}.
- *
+ * 
  * @author Tom Baeyens
  * @author Nick Burch
  * @author Dave Syer
  * @author Frederik Heremans
+ * @author Clint Manning
  */
-public abstract class JobEntity implements Serializable, Job, PersistentObject, HasRevision {
+public abstract class JobEntity implements Serializable, Job, PersistentObject,
+		HasRevision {
 
-  public static final boolean DEFAULT_EXCLUSIVE = true;
-  public static final int DEFAULT_RETRIES = 3;
-  private static final int MAX_EXCEPTION_MESSAGE_LENGTH = 255;
+	public static final boolean DEFAULT_EXCLUSIVE = true;
+	public static final int DEFAULT_RETRIES = 3;
+	private static final int MAX_EXCEPTION_MESSAGE_LENGTH = 255;
 
-  private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-  protected String id;
-  protected int revision;
+	protected String id;
+	protected int revision;
 
-  protected Date duedate;
+	protected Date duedate;
 
-  protected String lockOwner = null;
-  protected Date lockExpirationTime = null;
+	protected String lockOwner = null;
+	protected Date lockExpirationTime = null;
 
-  protected String executionId = null;
-  protected String processInstanceId = null;
-  protected String processDefinitionId = null;
+	protected String executionId = null;
+	protected String processInstanceId = null;
+	protected String processDefinitionId = null;
 
-  protected boolean isExclusive = DEFAULT_EXCLUSIVE;
+	protected boolean isExclusive = DEFAULT_EXCLUSIVE;
 
-  protected int retries = DEFAULT_RETRIES;
+	protected int retries = DEFAULT_RETRIES;
 
-  protected String jobHandlerType = null;
-  protected String jobHandlerConfiguration = null;
-  
-  protected ByteArrayEntity exceptionByteArray;
-  protected String exceptionByteArrayId;
-  
-  protected String exceptionMessage;
+	protected String jobHandlerType = null;
+	protected String jobHandlerConfiguration = null;
 
-  public void execute(CommandContext commandContext) {
-    ExecutionEntity execution = null;
-    if (executionId != null) {
-      execution = commandContext.getExecutionManager().findExecutionById(executionId);
-    }
+	protected ByteArrayEntity exceptionByteArray;
+	protected String exceptionByteArrayId;
 
-    Map<String, JobHandler> jobHandlers = Context.getProcessEngineConfiguration().getJobHandlers();
-    JobHandler jobHandler = jobHandlers.get(jobHandlerType);
+	protected String exceptionMessage;
+	
+	public static final int MIN_JOB_PRIO = -20;
+	public static final int MAX_JOB_PRIO = 20;
+	public static final int DEFAULT_JOB_PRIO = 0;
+	private int priority = DEFAULT_JOB_PRIO;
+	private static Logger log = Logger.getLogger(JobEntity.class.getName());
 
-    jobHandler.execute(this, jobHandlerConfiguration, execution, commandContext);
-  }
-  
-  public void insert() {
-    DbSqlSession dbSqlSession = Context
-      .getCommandContext()
-      .getDbSqlSession();
-    
-    dbSqlSession.insert(this);
-    
-    // add link to execution
-    if(executionId != null) {
-      ExecutionEntity execution = Context.getCommandContext()
-        .getExecutionManager()
-        .findExecutionById(executionId);
-      execution.addJob(this);
-    }
-  }
-  
-  public void delete() {
-    DbSqlSession dbSqlSession = Context
-      .getCommandContext()
-      .getDbSqlSession();
 
-    dbSqlSession.delete(this);
+	public void execute(CommandContext commandContext) {
+		ExecutionEntity execution = null;
+		if (executionId != null) {
+			execution = commandContext.getExecutionManager().findExecutionById(
+					executionId);
+		}
 
-    // Also delete the job's exception byte array
-    if (exceptionByteArrayId != null) {
-      Context.getCommandContext().getByteArrayManager().deleteByteArrayById(exceptionByteArrayId);
-    }
-    
-    // remove link to execution
-    if(executionId != null) {
-      ExecutionEntity execution = Context.getCommandContext()
-        .getExecutionManager()
-        .findExecutionById(executionId);
-      execution.removeJob(this);
-    }
-  }
+		Map<String, JobHandler> jobHandlers = Context
+				.getProcessEngineConfiguration().getJobHandlers();
+		JobHandler jobHandler = jobHandlers.get(jobHandlerType);
 
-  public Object getPersistentState() {
-    Map<String, Object> persistentState = new HashMap<String, Object>();
-    persistentState.put("lockOwner", lockOwner);
-    persistentState.put("lockExpirationTime", lockExpirationTime);
-    persistentState.put("retries", retries);
-    persistentState.put("duedate", duedate);
-    persistentState.put("exceptionMessage", exceptionMessage);
-    if(exceptionByteArrayId != null) {
-      persistentState.put("exceptionByteArrayId", exceptionByteArrayId);      
-    }
-    return persistentState;
-  }
-  
-  public int getRevisionNext() {
-    return revision+1;
-  }
+		jobHandler.execute(this, jobHandlerConfiguration, execution,
+				commandContext);
+	}
 
-  public void setExecution(ExecutionEntity execution) {
-    executionId = execution.getId();
-    processInstanceId = execution.getProcessInstanceId();
-    execution.addJob(this);
-  }
+	public void insert() {
+		DbSqlSession dbSqlSession = Context.getCommandContext()
+				.getDbSqlSession();
 
-  // getters and setters //////////////////////////////////////////////////////
+		dbSqlSession.insert(this);
 
-  public String getExecutionId() {
-    return executionId;
-  }
-  public void setExecutionId(String executionId) {
-    this.executionId = executionId;
-  }
-  public int getRetries() {
-    return retries;
-  }
-  public void setRetries(int retries) {
-    this.retries = retries;
-  }
-  
-  public String getExceptionStacktrace() {
-    String exception = null;
-    ByteArrayEntity byteArray = getExceptionByteArray();
-    if(byteArray != null) {
-      try {
-        exception = new String(byteArray.getBytes(), "UTF-8");
-      } catch (UnsupportedEncodingException e) {
-        throw new ActivitiException("UTF-8 is not a supported encoding");
-      }
-    }
-    return exception;
-  }
-  
-  public String getLockOwner() {
-    return lockOwner;
-  }
-  public void setLockOwner(String claimedBy) {
-    this.lockOwner = claimedBy;
-  }
-  public Date getLockExpirationTime() {
-    return lockExpirationTime;
-  }
-  public void setLockExpirationTime(Date claimedUntil) {
-    this.lockExpirationTime = claimedUntil;
-  }
-  public String getProcessInstanceId() {
-    return processInstanceId;
-  }
-  public void setProcessInstanceId(String processInstanceId) {
-    this.processInstanceId = processInstanceId;
-  }
-  public boolean isExclusive() {
-    return isExclusive;
-  }
-  public void setExclusive(boolean isExclusive) {
-    this.isExclusive = isExclusive;
-  }
-  public String getId() {
-    return id;
-  }
-  public void setId(String id) {
-    this.id = id;
-  }
-  public Date getDuedate() {
-    return duedate;
-  }
-  public void setDuedate(Date duedate) {
-    this.duedate = duedate;
-  }
-  
-  public String getProcessDefinitionId() {
-    return processDefinitionId;
-  }
+		// add link to execution
+		if (executionId != null) {
+			ExecutionEntity execution = Context.getCommandContext()
+					.getExecutionManager().findExecutionById(executionId);
+			execution.addJob(this);
+		}
+	}
 
-  public void setProcessDefinitionId(String processDefinitionId) {
-    this.processDefinitionId = processDefinitionId;
-  }
+	public void delete() {
+		DbSqlSession dbSqlSession = Context.getCommandContext()
+				.getDbSqlSession();
 
-  public void setExceptionStacktrace(String exception) {
-    byte[] exceptionBytes = null;
-    if(exception == null) {
-      exceptionBytes = null;      
-    } else {
-      
-      try {
-        exceptionBytes = exception.getBytes("UTF-8");
-      } catch (UnsupportedEncodingException e) {
-        throw new ActivitiException("UTF-8 is not a supported encoding");
-      }
-    }   
-    
-    ByteArrayEntity byteArray = getExceptionByteArray();
-    if(byteArray == null) {
-      byteArray = new ByteArrayEntity("job.exceptionByteArray", exceptionBytes);
-      Context
-        .getCommandContext()
-        .getDbSqlSession()
-        .insert(byteArray);
-      exceptionByteArrayId = byteArray.getId();
-      exceptionByteArray = byteArray;
-    } else {
-      byteArray.setBytes(exceptionBytes);
-    }
-  }
-  
-  public String getJobHandlerType() {
-    return jobHandlerType;
-  }
-  public void setJobHandlerType(String jobHandlerType) {
-    this.jobHandlerType = jobHandlerType;
-  }
-  public String getJobHandlerConfiguration() {
-    return jobHandlerConfiguration;
-  }
-  public void setJobHandlerConfiguration(String jobHandlerConfiguration) {
-    this.jobHandlerConfiguration = jobHandlerConfiguration;
-  }
-  public int getRevision() {
-    return revision;
-  }
-  public void setRevision(int revision) {
-    this.revision = revision;
-  }
-  
-  public String getExceptionMessage() {
-    return exceptionMessage;
-  }
+		dbSqlSession.delete(this);
 
-  public void setExceptionMessage(String exceptionMessage) {
-    if(exceptionMessage != null && exceptionMessage.length() > MAX_EXCEPTION_MESSAGE_LENGTH) {
-      this.exceptionMessage = exceptionMessage.substring(0, MAX_EXCEPTION_MESSAGE_LENGTH);
-    } else {
-      this.exceptionMessage = exceptionMessage;      
-    }
-  }
-  
-  public String getExceptionByteArrayId() {
-    return exceptionByteArrayId;
-  }
+		// Also delete the job's exception byte array
+		if (exceptionByteArrayId != null) {
+			Context.getCommandContext().getByteArrayManager()
+					.deleteByteArrayById(exceptionByteArrayId);
+		}
 
-  private ByteArrayEntity getExceptionByteArray() {
-    if ((exceptionByteArray == null) && (exceptionByteArrayId != null)) {
-      exceptionByteArray = Context
-        .getCommandContext()
-        .getDbSqlSession()
-        .selectById(ByteArrayEntity.class, exceptionByteArrayId);
-    }
-    return exceptionByteArray;
-  }
+		// remove link to execution
+		if (executionId != null) {
+			ExecutionEntity execution = Context.getCommandContext()
+					.getExecutionManager().findExecutionById(executionId);
+			execution.removeJob(this);
+		}
+	}
+
+	public Object getPersistentState() {
+		Map<String, Object> persistentState = new HashMap<String, Object>();
+		persistentState.put("lockOwner", lockOwner);
+		persistentState.put("lockExpirationTime", lockExpirationTime);
+		persistentState.put("retries", retries);
+		persistentState.put("duedate", duedate);
+		persistentState.put("exceptionMessage", exceptionMessage);
+		if (exceptionByteArrayId != null) {
+			persistentState.put("exceptionByteArrayId", exceptionByteArrayId);
+		}
+		return persistentState;
+	}
+
+	public int getRevisionNext() {
+		return revision + 1;
+	}
+
+	public void setExecution(ExecutionEntity execution) {
+		try {
+			Object tmpPrio = execution.getVariable("PRIO");
+			if (tmpPrio != null) {
+				int processPriority = Integer.parseInt(tmpPrio.toString());
+				if (MIN_JOB_PRIO > processPriority
+						|| MAX_JOB_PRIO < processPriority) {
+					int validatedPrio = checkPriority(processPriority);
+					this.priority = validatedPrio;
+				} else {
+					this.priority = processPriority;
+				}
+			}
+		} catch (Exception e) {	
+			 if (log.isLoggable(Level.FINE))	{			 
+				 log.log(Level.WARNING,"Couldn't get process instance priority, going to use default priority (e.g. '0')",e);
+			 }
+			 else {
+				 log.log(Level.WARNING,"Couldn't get process instance priority, going to use default priority (e.g. '0')");
+			 }
+			this.priority = this.DEFAULT_JOB_PRIO;
+		}
+		
+		executionId = execution.getId();
+		processInstanceId = execution.getProcessInstanceId();
+		execution.addJob(this);
+	}
+
+	// getters and setters
+	// //////////////////////////////////////////////////////
+
+	public String getExecutionId() {
+		return executionId;
+	}
+
+	public void setExecutionId(String executionId) {
+		this.executionId = executionId;
+	}
+
+	public int getRetries() {
+		return retries;
+	}
+
+	public void setRetries(int retries) {
+		this.retries = retries;
+	}
+
+	public String getExceptionStacktrace() {
+		String exception = null;
+		ByteArrayEntity byteArray = getExceptionByteArray();
+		if (byteArray != null) {
+			try {
+				exception = new String(byteArray.getBytes(), "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				throw new ActivitiException("UTF-8 is not a supported encoding");
+			}
+		}
+		return exception;
+	}
+
+	public String getLockOwner() {
+		return lockOwner;
+	}
+
+	public void setLockOwner(String claimedBy) {
+		this.lockOwner = claimedBy;
+	}
+
+	public Date getLockExpirationTime() {
+		return lockExpirationTime;
+	}
+
+	public void setLockExpirationTime(Date claimedUntil) {
+		this.lockExpirationTime = claimedUntil;
+	}
+
+	public String getProcessInstanceId() {
+		return processInstanceId;
+	}
+
+	public void setProcessInstanceId(String processInstanceId) {
+		this.processInstanceId = processInstanceId;
+	}
+
+	public boolean isExclusive() {
+		return isExclusive;
+	}
+
+	public void setExclusive(boolean isExclusive) {
+		this.isExclusive = isExclusive;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public Date getDuedate() {
+		return duedate;
+	}
+
+	public void setDuedate(Date duedate) {
+		this.duedate = duedate;
+	}
+
+	public String getProcessDefinitionId() {
+		return processDefinitionId;
+	}
+
+	public void setProcessDefinitionId(String processDefinitionId) {
+		this.processDefinitionId = processDefinitionId;
+	}
+
+	public void setExceptionStacktrace(String exception) {
+		byte[] exceptionBytes = null;
+		if (exception == null) {
+			exceptionBytes = null;
+		} else {
+
+			try {
+				exceptionBytes = exception.getBytes("UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				throw new ActivitiException("UTF-8 is not a supported encoding");
+			}
+		}
+
+		ByteArrayEntity byteArray = getExceptionByteArray();
+		if (byteArray == null) {
+			byteArray = new ByteArrayEntity("job.exceptionByteArray",
+					exceptionBytes);
+			Context.getCommandContext().getDbSqlSession().insert(byteArray);
+			exceptionByteArrayId = byteArray.getId();
+			exceptionByteArray = byteArray;
+		} else {
+			byteArray.setBytes(exceptionBytes);
+		}
+	}
+
+	public String getJobHandlerType() {
+		return jobHandlerType;
+	}
+
+	public void setJobHandlerType(String jobHandlerType) {
+		this.jobHandlerType = jobHandlerType;
+	}
+
+	public String getJobHandlerConfiguration() {
+		return jobHandlerConfiguration;
+	}
+
+	public void setJobHandlerConfiguration(String jobHandlerConfiguration) {
+		this.jobHandlerConfiguration = jobHandlerConfiguration;
+	}
+
+	public int getRevision() {
+		return revision;
+	}
+
+	public void setRevision(int revision) {
+		this.revision = revision;
+	}
+
+	public String getExceptionMessage() {
+		return exceptionMessage;
+	}
+
+	public void setExceptionMessage(String exceptionMessage) {
+		if (exceptionMessage != null
+				&& exceptionMessage.length() > MAX_EXCEPTION_MESSAGE_LENGTH) {
+			this.exceptionMessage = exceptionMessage.substring(0,
+					MAX_EXCEPTION_MESSAGE_LENGTH);
+		} else {
+			this.exceptionMessage = exceptionMessage;
+		}
+	}
+
+	public String getExceptionByteArrayId() {
+		return exceptionByteArrayId;
+	}
+
+	private ByteArrayEntity getExceptionByteArray() {
+		if ((exceptionByteArray == null) && (exceptionByteArrayId != null)) {
+			exceptionByteArray = Context.getCommandContext().getDbSqlSession()
+					.selectById(ByteArrayEntity.class, exceptionByteArrayId);
+		}
+		return exceptionByteArray;
+	}
+
+	/**
+	 * @return the prio
+	*/
+	public int getPriority() {
+		return priority;
+	}
+
+	/**
+	   * Sets the job priority.
+	   * <p>
+	   * If the given value is outside of the valid range (-20, ..., +20), the
+	   * minimum resp. maximum valid value is used (e.g -20 resp. +20).
+	   * 
+	   * @param prio
+	   *            the prio to set
+	   */
+	public void setPriority(int priority) {
+		this.priority = priority;
+	}
+	
+	/**
+	   * Returns the validated priority.
+	   * <p>
+	   * If the given value is outside of the valid range (-20, ..., +20), the
+	   * minimum resp. maximum valid value is used (e.g -20 resp. +20).
+	   * 
+	   * @param requestedPriority
+	   *            the requested priority
+	   * @return the validated priority
+	   */
+	  private int checkPriority(int requestedPriority) {
+	      if (MIN_JOB_PRIO > requestedPriority) {
+	    	  log.warning("Requested job priority (" + requestedPriority + ") is less than allowed minimum value (" + MIN_JOB_PRIO
+	                  + "), using " + MIN_JOB_PRIO);		
+	          return MIN_JOB_PRIO;
+	      }
+	      if (MAX_JOB_PRIO < requestedPriority) {
+	    	  log.warning("Requested job priority (" + requestedPriority + ") is greater than allowed maximum value (" + MAX_JOB_PRIO
+	                  + "), using " + MAX_JOB_PRIO);	
+	          return MAX_JOB_PRIO;
+	      }
+	      return requestedPriority;
+	  }
+	
 }

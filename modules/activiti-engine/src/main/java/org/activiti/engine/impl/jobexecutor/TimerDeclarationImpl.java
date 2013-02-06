@@ -139,6 +139,7 @@ public class TimerDeclarationImpl implements Serializable {
       timer.setExecution(executionEntity);
     }
     
+    
     if (type == TimerDeclarationType.CYCLE) {
       
       // See ACT-1427: A boundary timer with a cancelActivity='true', doesn't need to repeat itself

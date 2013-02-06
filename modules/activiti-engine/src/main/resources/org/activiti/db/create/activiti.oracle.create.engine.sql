@@ -83,6 +83,7 @@ create table ACT_RU_JOB (
     REPEAT_ NVARCHAR2(255),
     HANDLER_TYPE_ NVARCHAR2(255),
     HANDLER_CFG_ NVARCHAR2(2000),
+	PRIORITY_ integer,
     primary key (ID_)
 );
 

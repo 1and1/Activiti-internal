@@ -83,6 +83,7 @@ create table ACT_RU_JOB (
     REPEAT_ nvarchar(255),
     HANDLER_TYPE_ nvarchar(255),
     HANDLER_CFG_ nvarchar(4000),
+	PRIORITY_ integer,
     primary key (ID_)
 );
 
