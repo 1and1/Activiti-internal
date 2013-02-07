@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions 
+  xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:activiti="http://activiti.org/bpmn"
+  targetNamespace="Examples">
+
+  <process id="asyncServiceB">
+  
+    <startEvent id="theStartB" />
+    <sequenceFlow id="flow1" sourceRef="theStartB" targetRef="serviceB" />
+    
+    <serviceTask id="serviceB" activiti:class="org.activiti.engine.test.jobexecutor.AsyncServiceB" activiti:async="true" />
+    
+    <sequenceFlow id="flow2" sourceRef="serviceB" targetRef="theEnd" />
+        
+    <endEvent id="theEnd" />
+    
+  </process>
+
+</definitions>

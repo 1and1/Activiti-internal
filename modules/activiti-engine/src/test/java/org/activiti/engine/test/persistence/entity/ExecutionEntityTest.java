@@ -125,6 +125,7 @@ public class ExecutionEntityTest extends PluggableActivitiTestCase {
 
 	
 	
+	// Check the Job priority is correct once a job is sent to the DB and listed in the process instance
 	public void testStartProcessAsyncTaskCheckPriorityOnMessage() {
 		
 		repositoryService

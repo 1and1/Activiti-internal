@@ -140,6 +140,7 @@ public abstract class JobEntity implements Serializable, Job, PersistentObject,
 		if (exceptionByteArrayId != null) {
 			persistentState.put("exceptionByteArrayId", exceptionByteArrayId);
 		}
+		persistentState.put("priority", priority);
 		return persistentState;
 	}
 

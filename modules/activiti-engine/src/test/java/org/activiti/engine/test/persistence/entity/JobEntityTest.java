@@ -10,6 +10,7 @@ import org.activiti.engine.impl.persistence.entity.TimerEntity;
 import org.activiti.engine.test.Deployment;
 
 public class JobEntityTest extends JobTestCase {
+	
 	private static final int DEFAULT_PRIORITY = 0;
 
 	private String[] testInputPriorities = { "10", "-5",
@@ -24,16 +25,19 @@ public class JobEntityTest extends JobTestCase {
 			String.valueOf(JobEntity.MAX_JOB_PRIO),
 			String.valueOf(JobEntity.MIN_JOB_PRIO) };
 
+	// Check the default priority for a new TimerEntity
 	public void testCreateTimerCheckDefaultPriority() {
 		TimerEntity timer = createTestTimerEntity();
 		assertEquals(DEFAULT_PRIORITY, timer.getPriority());
 	}
 
+	// Check the default priority for a new MessageEntity
 	public void testCreateMessageCheckDefaultPriority() {
 		MessageEntity message = createTestMessageEntity();
 		assertEquals(DEFAULT_PRIORITY, message.getPriority());
 	}
 
+	// Check the priority for a new TimerEntity Object
 	public void testCreateTimerCheckPriority() {
 		TimerEntity jobEntity = null;
 		Map<String, Object> variables = null;
@@ -61,6 +65,7 @@ public class JobEntityTest extends JobTestCase {
 		}
 	}
 
+	// Check the priority for a new MessageEntity Object
 	public void testCreateMessageCheckPriority() {
 		MessageEntity jobEntity = null;
 		Map<String, Object> variables = null;

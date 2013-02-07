@@ -68,6 +68,7 @@
 	  		or 
 	  		(PI.SUSPENSION_STATE_ = 1)
       )  
+      order by PRIORITY_ DESC
     ${limitAfter}	    
   </select>     
   
@@ -85,6 +86,7 @@
         or 
         (PI.SUSPENSION_STATE_ = 1)     
       )  
+      order by PRIORITY_ DESC
     ${limitAfter}
   </select>              
 
