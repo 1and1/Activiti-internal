@@ -2,7 +2,6 @@ package org.activiti.engine.test.jobexecutor;
 
 import java.util.Date;
 
-import org.activiti.engine.impl.persistence.entity.JobEntity;
 import org.activiti.engine.impl.persistence.entity.MessageEntity;
 
 public class MessageJobBuilder extends JobBuilder {

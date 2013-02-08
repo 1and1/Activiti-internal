@@ -17,7 +17,6 @@ public abstract class JobBuilder {
     public abstract JobBuilder setPriority(int p);
     public abstract JobBuilder setDuedate(Date d);
     public abstract JobBuilder setProcessDefinitionId(String pId);
-    public abstract JobBuilder setProcessInstanceId(String pI);
-   
+    public abstract JobBuilder setProcessInstanceId(String pI);  
 	
 }

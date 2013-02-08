@@ -12,7 +12,6 @@
  */
 package org.activiti.engine.test.persistence.entity;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,11 +19,7 @@ import org.activiti.engine.impl.Page;
 import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.impl.interceptor.CommandContext;
 import org.activiti.engine.impl.interceptor.CommandExecutor;
-import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.JobEntity;
-import org.activiti.engine.impl.persistence.entity.MessageEntity;
-import org.activiti.engine.impl.persistence.entity.TimerEntity;
-import org.activiti.engine.impl.util.ClockUtil;
 import org.activiti.engine.runtime.Job;
 
 
@@ -47,7 +42,7 @@ public class JobManagerJobPriorityTest extends JobTestCase {
 		.deploy();		
 		
 		// start process
-		ExecutionEntity processInstance = (ExecutionEntity) runtimeService.startProcessInstanceByKey("asyncService");
+		runtimeService.startProcessInstanceByKey("asyncService");
 		
 		CommandExecutor commandExecutor = processEngineConfiguration
 				.getCommandExecutorTxRequired();
@@ -76,7 +71,7 @@ public class JobManagerJobPriorityTest extends JobTestCase {
 				"org/activiti/engine/test/bpmn/event/timer/IntermediateTimerEventTest.testCatchingTimerEvent.bpmn20.xml")
 		.deploy();
 		
-		ExecutionEntity processInstance = (ExecutionEntity) runtimeService.startProcessInstanceByKey("intermediateTimerEventExample");
+		runtimeService.startProcessInstanceByKey("intermediateTimerEventExample");
 		assertEquals(1, managementService.createJobQuery().count());
 		Job jb = managementService.createJobQuery().singleResult();
 		final String id = jb.getId();
@@ -113,7 +108,7 @@ public class JobManagerJobPriorityTest extends JobTestCase {
 		variables.put("PRIO", expectedPriority);
 		
 		// start process
-		ExecutionEntity processInstance = (ExecutionEntity) runtimeService.startProcessInstanceByKey("asyncService",variables);
+		runtimeService.startProcessInstanceByKey("asyncService",variables);
 
 		JobEntity job = commandExecutor.execute(new Command<JobEntity>() {
 			public JobEntity execute(CommandContext commandContext) {	
@@ -143,7 +138,7 @@ public class JobManagerJobPriorityTest extends JobTestCase {
 		variables.put("PRIO", expectedPriority);
 		
 		
-		ExecutionEntity processInstance = (ExecutionEntity) runtimeService.startProcessInstanceByKey("intermediateTimerEventExample",variables);
+		runtimeService.startProcessInstanceByKey("intermediateTimerEventExample",variables);
 		assertEquals(1, managementService.createJobQuery().count());
 		Job jb = managementService.createJobQuery().singleResult();
 		final String id = jb.getId();

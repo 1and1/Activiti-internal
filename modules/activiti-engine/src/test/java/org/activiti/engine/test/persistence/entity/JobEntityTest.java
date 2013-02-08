@@ -7,7 +7,7 @@ import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.JobEntity;
 import org.activiti.engine.impl.persistence.entity.MessageEntity;
 import org.activiti.engine.impl.persistence.entity.TimerEntity;
-import org.activiti.engine.test.Deployment;
+
 
 public class JobEntityTest extends JobTestCase {
 	

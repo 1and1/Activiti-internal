@@ -19,7 +19,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.activiti.engine.ActivitiException;
-import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.impl.context.Context;
 import org.activiti.engine.impl.db.DbSqlSession;
 import org.activiti.engine.impl.db.HasRevision;

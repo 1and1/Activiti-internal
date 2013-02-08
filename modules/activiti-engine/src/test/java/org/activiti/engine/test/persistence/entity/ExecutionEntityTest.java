@@ -13,7 +13,6 @@
 
 package org.activiti.engine.test.persistence.entity;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,8 +23,6 @@ import org.activiti.engine.impl.interceptor.CommandExecutor;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.JobEntity;
 import org.activiti.engine.impl.test.PluggableActivitiTestCase;
-import org.activiti.engine.runtime.JobQuery;
-import org.activiti.engine.test.Deployment;
 
 /**
  * @author Clint Manning
@@ -33,7 +30,6 @@ import org.activiti.engine.test.Deployment;
 public class ExecutionEntityTest extends PluggableActivitiTestCase {
 
 	private static final int PRIORITY_10 = 10;
-	private static final int PRIORITY_5 = 5;
 	private static final int DEFAULT_PRIORITY = 0;
 
 	
