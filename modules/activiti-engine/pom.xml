@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
 
@@ -11,7 +10,7 @@
     <groupId>org.activiti</groupId>
     <artifactId>activiti-root</artifactId>
     <relativePath>../..</relativePath>
-    <version>5.11.ui1-SNAPSHOT</version>
+    <version>5.11.ui2-SNAPSHOT</version>
   </parent>
   
   
@@ -218,7 +217,7 @@
                     </goals>
                   </pluginExecutionFilter>
                   <action>
-                    <ignore></ignore>
+                    <ignore />
                   </action>
                 </pluginExecution>
               </pluginExecutions>
@@ -658,8 +657,7 @@
                 <configuration>
                   <tasks>
                     <echo message="dropping schema in ${metadatabase}" />
-                    <ant antfile="${basedir}/../../qa/db/build.xml" target="drop.db.schema"
-                         inheritAll="false">
+                    <ant antfile="${basedir}/../../qa/db/build.xml" target="drop.db.schema" inheritAll="false">
                       <property name="test_classpath" refid="maven.test.classpath" />
                       <property name="database" value="${metadatabase}" />
                     </ant>

@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <name>Activiti</name>
@@ -8,7 +7,7 @@
   <artifactId>activiti-root</artifactId>
 
   <packaging>pom</packaging>
-  <version>5.11.ui1-SNAPSHOT</version>
+  <version>5.11.ui2-SNAPSHOT</version>
   <properties>
     <spring.framework.version>3.1.2.RELEASE</spring.framework.version>
     <mule.version>3.3.0</mule.version>
@@ -17,7 +16,7 @@
     <batik.version>1.7</batik.version>
 
     <!-- OSGi bundles properties -->
-    <activiti.artifact/>
+    <activiti.artifact />
     <activiti.osgi.import.activiti.version>version="[$(version;==;${activiti.osgi.version.clean}),$(version;=+;${activiti.osgi.version.clean}))"</activiti.osgi.import.activiti.version>
     <activiti.osgi.import.strict.version>version="[$(version;===;${activiti.osgi.version.clean}),$(version;==+;${activiti.osgi.version.clean}))"</activiti.osgi.import.strict.version>
     <activiti.osgi.import.default.version>[$(version;==;$(@)),$(version;+;$(@)))</activiti.osgi.import.default.version>
@@ -40,7 +39,7 @@
     <activiti.osgi.private.pkg>${activiti.artifact}*.impl</activiti.osgi.private.pkg>
     -->
     <activiti.osgi.export.pkg>${activiti.artifact}*</activiti.osgi.export.pkg>
-    <activiti.osgi.private.pkg></activiti.osgi.private.pkg>
+    <activiti.osgi.private.pkg />
     <activiti.osgi.version>version=${project.version}</activiti.osgi.version>
     <activiti.osgi.split.pkg>-split-package:=first</activiti.osgi.split.pkg>
     <activiti.osgi.import>${activiti.osgi.import.pkg}</activiti.osgi.import>
@@ -49,7 +48,7 @@
     <activiti.osgi.exclude.dependencies>false</activiti.osgi.exclude.dependencies>
     <activiti.osgi.remove.headers>Ignore-Package,Include-Resource,Private-Package,Bundle-DocURL</activiti.osgi.remove.headers>
     <activiti.osgi.include.resource>{maven-resources}</activiti.osgi.include.resource>
-    <activiti.osgi.embed></activiti.osgi.embed>
+    <activiti.osgi.embed />
   </properties>
 
   <dependencyManagement>
@@ -600,7 +599,7 @@
                     </goals>
                   </pluginExecutionFilter>
                   <action>
-                    <ignore></ignore>
+                    <ignore />
                   </action>
                 </pluginExecution>
               </pluginExecutions>
