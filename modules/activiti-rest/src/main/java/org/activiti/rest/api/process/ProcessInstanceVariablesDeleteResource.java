@@ -79,7 +79,7 @@ public class ProcessInstanceVariablesDeleteResource extends SecuredResource {
 			return successNode;
 
 		} catch (Exception e) {
-			throw new ActivitiException("Failed to update process variables", e);
+			throw new ActivitiException("Failed to delete process variables", e);
 		}
 	}
 
