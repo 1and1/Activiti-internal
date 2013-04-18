@@ -42,6 +42,7 @@ import org.activiti.rest.api.process.ProcessInstanceDiagramResource;
 import org.activiti.rest.api.process.ProcessInstanceResource;
 import org.activiti.rest.api.process.ProcessInstanceSignalExecutionResource;
 import org.activiti.rest.api.process.ProcessInstanceTaskResource;
+import org.activiti.rest.api.process.ProcessInstanceVariablesResource;
 import org.activiti.rest.api.process.ProcessInstancesResource;
 import org.activiti.rest.api.process.SignalEventSubscriptionResource;
 import org.activiti.rest.api.process.StartProcessInstanceResource;
@@ -131,6 +132,7 @@ public class ActivitiRestApplication extends Application {
     router.attach("/process-instance/{processInstanceId}", ProcessInstanceResource.class);
     router.attach("/process-instance/{processInstanceId}/diagram", ProcessInstanceDiagramResource.class);
     router.attach("/process-instance/{processInstanceId}/tasks", ProcessInstanceTaskResource.class);
+    router.attach("/process-instance/{processInstanceId}/variables", ProcessInstanceVariablesResource.class);
     router.attach("/process-instance/{processInstanceId}/signal", ProcessInstanceSignalExecutionResource.class);
     router.attach("/process-instance/{processInstanceId}/event/{signalName}", SignalEventSubscriptionResource.class);
     router.attach("/process-definition/{processDefinitionId}/form", ProcessDefinitionFormResource.class);
