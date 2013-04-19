@@ -29,6 +29,7 @@ import org.activiti.rest.api.identity.UserResource;
 import org.activiti.rest.api.identity.UserSearchResource;
 import org.activiti.rest.api.management.JobExecuteResource;
 import org.activiti.rest.api.management.JobResource;
+import org.activiti.rest.api.management.JobRetriesResource;
 import org.activiti.rest.api.management.JobsExecuteResource;
 import org.activiti.rest.api.management.JobsResource;
 import org.activiti.rest.api.management.TableDataResource;
@@ -166,6 +167,7 @@ public class ActivitiRestApplication extends Application {
     router.attach("/management/jobs", JobsResource.class);
     router.attach("/management/job/{jobId}", JobResource.class);
     router.attach("/management/job/{jobId}/execute", JobExecuteResource.class);
+    router.attach("/management/job/{jobId}/retries", JobRetriesResource.class);
     router.attach("/management/jobs/execute", JobsExecuteResource.class);
     
     router.attach("/management/tables", TablesResource.class);
