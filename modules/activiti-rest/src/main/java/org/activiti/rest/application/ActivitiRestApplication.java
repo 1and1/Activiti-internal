@@ -45,9 +45,7 @@ import org.activiti.rest.api.process.ProcessInstanceResource;
 import org.activiti.rest.api.process.ProcessInstanceSignalExecutionResource;
 import org.activiti.rest.api.process.ProcessInstanceSuspendExecutionResource;
 import org.activiti.rest.api.process.ProcessInstanceTaskResource;
-import org.activiti.rest.api.process.ProcessInstanceVariablesDeleteResource;
 import org.activiti.rest.api.process.ProcessInstanceVariablesResource;
-import org.activiti.rest.api.process.ProcessInstanceVariablesUpdateResource;
 import org.activiti.rest.api.process.ProcessInstancesResource;
 import org.activiti.rest.api.process.SignalEventSubscriptionResource;
 import org.activiti.rest.api.process.StartProcessInstanceResource;
@@ -138,8 +136,6 @@ public class ActivitiRestApplication extends Application {
     router.attach("/process-instance/{processInstanceId}/diagram", ProcessInstanceDiagramResource.class);
     router.attach("/process-instance/{processInstanceId}/tasks", ProcessInstanceTaskResource.class);
     router.attach("/process-instance/{processInstanceId}/variables", ProcessInstanceVariablesResource.class);
-    router.attach("/process-instance/{processInstanceId}/variables/update", ProcessInstanceVariablesUpdateResource.class);
-    router.attach("/process-instance/{processInstanceId}/variables/delete", ProcessInstanceVariablesDeleteResource.class);
     router.attach("/process-instance/{processInstanceId}/activate", ProcessInstanceActivateExecutionResource.class);
     router.attach("/process-instance/{processInstanceId}/delete", ProcessInstanceDeleteExecutionResource.class);
     router.attach("/process-instance/{processInstanceId}/signal", ProcessInstanceSignalExecutionResource.class);
