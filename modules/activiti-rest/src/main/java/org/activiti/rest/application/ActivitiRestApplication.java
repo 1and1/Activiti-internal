@@ -41,6 +41,7 @@ import org.activiti.rest.api.process.ProcessDefinitionPropertiesResource;
 import org.activiti.rest.api.process.ProcessDefinitionsResource;
 import org.activiti.rest.api.process.ProcessInstanceActivateExecutionResource;
 import org.activiti.rest.api.process.ProcessInstanceDiagramResource;
+import org.activiti.rest.api.process.ProcessInstanceJobsResource;
 import org.activiti.rest.api.process.ProcessInstanceResource;
 import org.activiti.rest.api.process.ProcessInstanceSignalExecutionResource;
 import org.activiti.rest.api.process.ProcessInstanceSuspendExecutionResource;
@@ -134,6 +135,7 @@ public class ActivitiRestApplication extends Application {
     router.attach("/process-instance", StartProcessInstanceResource.class);
     router.attach("/process-instance/{processInstanceId}", ProcessInstanceResource.class);
     router.attach("/process-instance/{processInstanceId}/diagram", ProcessInstanceDiagramResource.class);
+    router.attach("/process-instance/{processInstanceId}/jobs", ProcessInstanceJobsResource.class);
     router.attach("/process-instance/{processInstanceId}/tasks", ProcessInstanceTaskResource.class);
     router.attach("/process-instance/{processInstanceId}/variables", ProcessInstanceVariablesResource.class);
     router.attach("/process-instance/{processInstanceId}/activate", ProcessInstanceActivateExecutionResource.class);
