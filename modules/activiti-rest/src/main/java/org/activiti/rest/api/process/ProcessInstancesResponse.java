@@ -30,6 +30,7 @@ public class ProcessInstancesResponse implements Serializable {
   String processDefinitionId;
   String startTime;
   String startUserId;
+  boolean isSuspended = false;
   
   public ProcessInstancesResponse(HistoricProcessInstance processInstance) {
     this.setId(processInstance.getId());
@@ -78,4 +79,13 @@ public class ProcessInstancesResponse implements Serializable {
   public void setStartUserId(String startUserId) {
     this.startUserId = startUserId;
   }
+
+  public boolean isSuspended() {
+    return isSuspended;
+  }
+
+  public void setSuspended(boolean isSuspended) {
+    this.isSuspended = isSuspended;
+  }
+  
 }

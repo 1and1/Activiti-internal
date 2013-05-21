@@ -17,7 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.activiti.engine.history.HistoricProcessInstance;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.rest.api.AbstractPaginateList;
+import org.activiti.rest.api.ActivitiUtil;
 
 /**
  * @author Tijs Rademakers
@@ -29,8 +31,18 @@ public class ProcessInstancesPaginateList extends AbstractPaginateList {
   protected List processList(List list) {
     List<ProcessInstancesResponse> processResponseList = new ArrayList<ProcessInstancesResponse>();
     for (Object instance : list) {
-      processResponseList.add(new ProcessInstancesResponse(
-          (HistoricProcessInstance) instance));
+      HistoricProcessInstance hinstance = (HistoricProcessInstance) instance;
+      ProcessInstancesResponse processInstanceResponse = new ProcessInstancesResponse(hinstance);
+      
+      boolean processStillActive = hinstance.getEndTime() == null;
+      
+      if (processStillActive) {
+        ProcessInstance processInstance = ActivitiUtil.getRuntimeService().createProcessInstanceQuery()
+          .processInstanceId(hinstance.getId()).singleResult();
+        processInstanceResponse.setSuspended(processInstance.isSuspended());
+      }
+      
+      processResponseList.add(processInstanceResponse);
     }
     return processResponseList;
   }

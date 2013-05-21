@@ -22,6 +22,7 @@ import org.activiti.engine.history.HistoricDetail;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.history.HistoricVariableUpdate;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.rest.api.ActivitiUtil;
 import org.activiti.rest.api.RequestUtil;
 import org.activiti.rest.api.SecuredResource;
@@ -77,6 +78,12 @@ public class ProcessInstanceResource extends SecuredResource {
     
     boolean processStillActive = instance.getEndTime() == null;
     
+    if (processStillActive) {
+      ProcessInstance processInstance = ActivitiUtil.getRuntimeService().createProcessInstanceQuery()
+        .processInstanceId(instance.getId()).singleResult();
+      responseJSON.put("isSuspended", processInstance.isSuspended());
+    }
+
     addTaskList(processInstanceId, responseJSON);
     addActivityList(processInstanceId, responseJSON);
     addVariableList(processInstanceId, responseJSON, processStillActive);
