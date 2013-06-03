@@ -7,10 +7,8 @@
   
   <display-name>Activiti REST</display-name>
    
-  <listener>
-    <listener-class>org.activiti.rest.servlet.ActivitiServletContextListener</listener-class>
-  </listener> 
-  
+  <!--  Removed context listener see TIFSPP-590 -->
+    
   <!-- Restlet adapter -->  
   <servlet>  
     <servlet-name>RestletServlet</servlet-name>  
