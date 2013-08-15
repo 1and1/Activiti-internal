@@ -513,4 +513,5 @@ public interface RuntimeService {
    */
   void messageEventReceived(String messageName, String executionId, Map<String, Object> processVariables);
    
+  void moveExecution(String id,String targetActivityId);
 }
