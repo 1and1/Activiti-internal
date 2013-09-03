@@ -74,7 +74,8 @@ public class ProcessInstanceActivityMoveResource extends SecuredResource {
 		
 			DbSqlSession ses = (DbSqlSession) ((ProcessEngineImpl) ActivitiUtil.getProcessEngine()).getDbSqlSessionFactory().openSession();
 			ses.update(execution);
-			ses.flush();			
+			ses.flush();
+			ses.close();
 					
 			responseJSON.put("success", true);
 			return responseJSON;
